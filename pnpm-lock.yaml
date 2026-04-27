@@ -36,6 +36,9 @@ importers:
         specifier: ^5.2.1
         version: 5.8.5
     devDependencies:
+      '@types/bn.js':
+        specifier: ^5.2.0
+        version: 5.2.0
       '@types/node':
         specifier: ^20.19.0
         version: 20.19.39
