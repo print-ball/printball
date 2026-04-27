@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState, useEffect } from "react";
+import Image from "next/image";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { SOLSCAN_CLUSTER, solscanToken } from "@/lib/env";
@@ -89,8 +90,10 @@ export function HomePage() {
       <section className="quick-steps-wrap">
         <div className="shell">
           <div className="quick-steps-head">
-            <div className="quick-steps-eyebrow">How it works</div>
-            <h2 className="quick-steps-title">Three quick steps</h2>
+            <Image src="/logo.png" alt="" width={42} height={42} className="quick-steps-logo" />
+            <h2 className="quick-steps-brandline">PRINTBALL</h2>
+            <p className="quick-steps-subline">Powerball but on Printr</p>
+            <div className="quick-steps-eyebrow">Three quick steps to get started</div>
           </div>
           <div className="quick-steps">
             <article className="quick-step-card">
