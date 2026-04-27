@@ -1,6 +1,6 @@
 "use client";
 
-import { API_BASE, printrTradeUrl, TOKEN_TICKER } from "@/lib/env";
+import { API_BASE, printrTradeUrl } from "@/lib/env";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import Link from "next/link";
@@ -28,7 +28,7 @@ export function Header({ live }: { live: boolean }) {
             <Image src="/logo.png" alt="" width={40} height={40} className="h-10 w-10 object-contain" priority />
           </Link>
           <Link href="/" className="brand-name">
-            {TOKEN_TICKER}BALL
+            PRINTBALL
           </Link>
           <span className="brand-divider" />
           <Link className="nav-bracket" href="/#how-it-works">

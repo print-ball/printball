@@ -1,6 +1,6 @@
 "use client";
 
-import type { ApiStateResponse } from "@/lib/types";
+import type { ApiStateResponse, HistoricalRound } from "@/lib/types";
 import Link from "next/link";
 import { useReducedMotion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
@@ -45,7 +45,19 @@ function Timer({ secondsLeft }: { secondsLeft: number }) {
   );
 }
 
-export function Hero({ state }: { state: ApiStateResponse | null | undefined }) {
+function shortAddr(a: string): string {
+  if (!a) return "—";
+  if (a.length <= 12) return a;
+  return `${a.slice(0, 6)}…${a.slice(-6)}`;
+}
+
+export function Hero({
+  state,
+  winners,
+}: {
+  state: ApiStateResponse | null | undefined;
+  winners?: HistoricalRound[];
+}) {
   const reduceMotion = useReducedMotion();
   const [displayPool, setDisplayPool] = useState(0);
   const [localSecs, setLocalSecs] = useState(0);
@@ -61,6 +73,12 @@ export function Hero({ state }: { state: ApiStateResponse | null | undefined }) 
   const holderErr = sys?.holdersFetchError;
   const prizeErr = sys?.prizeFetchError ?? null;
   const tokenAccountsOnChain = sys?.holderTokenAccountCount ?? 0;
+  const latestWinner = winners?.[0];
+  const showWinnerReveal =
+    Boolean(latestWinner?.winner) &&
+    latestWinner?.status === "paid" &&
+    Date.now() - (latestWinner?.endedAt ?? 0) <= 45_000 &&
+    phase === "live";
 
   useEffect(() => {
     if (reduceMotion) {
@@ -239,6 +257,18 @@ export function Hero({ state }: { state: ApiStateResponse | null | undefined }) 
             </div>
           ) : (
             <>
+              {showWinnerReveal && latestWinner ? (
+                <div className="winner-reveal">
+                  <div className="winner-label">Winner just drawn</div>
+                  <div className="winner-address">{shortAddr(latestWinner.winner ?? "")}</div>
+                  <div className="winner-prize">
+                    ◆ {fmtAmount(lamportsToSol(latestWinner.prizeAmount), 3)} SOL
+                  </div>
+                  <div className="winner-meta">
+                    Round #{latestWinner.roundId} · <Link href={`/round/${latestWinner.roundId}`}>verify ↗</Link>
+                  </div>
+                </div>
+              ) : null}
               {holderErr ? (
                 <p className="mb-4 text-sm" style={{ color: "var(--red, #f87171)" }}>
                   Holder data: {holderErr}

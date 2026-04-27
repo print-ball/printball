@@ -18,8 +18,12 @@ export const metadata: Metadata = {
   title: "PRINTR Powerball",
   description: "Hold to win. Drawn every 15 minutes.",
   icons: {
-    icon: [{ url: "/logo.png", type: "image/png", sizes: "32x32" }],
-    shortcut: ["/logo.png"],
+    icon: [
+      { url: "/logo.png", type: "image/png", sizes: "16x16" },
+      { url: "/logo.png", type: "image/png", sizes: "32x32" },
+      { url: "/logo.png", type: "image/png", sizes: "any" },
+    ],
+    shortcut: [{ url: "/logo.png", type: "image/png" }],
     apple: [{ url: "/logo.png", sizes: "180x180" }],
   },
 };

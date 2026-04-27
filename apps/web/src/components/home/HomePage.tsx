@@ -60,7 +60,7 @@ export function HomePage() {
     <div style={{ minHeight: "100vh", background: "var(--bg-base)", color: "var(--text-primary)" }}>
       <Header live={live} />
       <main>
-        <Hero state={state} />
+        <Hero state={state} winners={winners} />
         <section className="section" data-screen-label="Leaderboard + Activity">
           <div className="shell">
             <div className="section-grid">
